@@ -2,9 +2,9 @@ import express from "express"
 import { Request, Response, NextFunction } from "express"
 import { CRUD } from "../interfaces";
 
-export class UserController implements CRUD {
+export class HomeController implements CRUD {
     public router = express.Router();
-    private basePath = "/user";
+    private basePath = "/";
 
     constructor() {
         this.initRoutes()
@@ -20,25 +20,25 @@ export class UserController implements CRUD {
 
     read() {
         return (req: Request, res: Response, next: NextFunction) => {
-            res.json({ message: "Reading information for the user" })
+            res.render("index.ejs")
         }
     }
 
     create() {
         return (req: Request, res: Response, next: NextFunction) => {
-            res.json({ message: "Creating information for the user" })
+            res.json({ message: "Creating information for the home page" })
         }
     }
 
     update() {
         return (req: Request, res: Response, next: NextFunction) => {
-            res.json({ message: "Updating information for the user" })
+            res.json({ message: "Updating information for the home page" })
         }
     }
 
     delete() {
         return (req: Request, res: Response, next: NextFunction) => {
-            res.json({ message: "Deleting information for the user" })
+            res.json({ message: "Deleting information for the home page" })
         }
     }
 
