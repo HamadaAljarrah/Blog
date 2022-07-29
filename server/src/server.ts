@@ -1,8 +1,9 @@
 import express from "express"
 import { App } from "./app";
-import { HomeController } from "./controllers/homeController";
+import { HomeController } from "./controllers/homeControllers";
 import { AuthController } from "./controllers/auhtControllers";
 import { verifyToken } from "./middlewares/verifyToken";
+import { BlogController } from "./controllers/blogControllers";
 
 
 
@@ -15,6 +16,7 @@ const app = new App({
     ],
     controllers: [
         new HomeController(),
+        new BlogController(),
         new AuthController(),
     ],
     configs: []

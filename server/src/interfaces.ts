@@ -15,6 +15,19 @@ export interface IUser extends mongoose.Document {
     password: string;
     comparePassword(candidatePassword: string): Promise<boolean>;
     generateAccessToken(exp: string): string;
+    generateRefreshToken(exp: string): string;
+
+}
+
+export interface IBlog extends mongoose.Document {
+    title: string;
+    snippet: string;
+    body: string;
+    auther: string;
+    category: string;
+    readTime: number;
+    date: Date;
+    edited?: Date;
 }
 
 export interface IPayload {

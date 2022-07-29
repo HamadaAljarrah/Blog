@@ -18,7 +18,7 @@ export class AuthController {
     }
 
 
-    private register() {
+    private register(): any {
         return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
             try {
                 //extract data from body
@@ -43,11 +43,13 @@ export class AuthController {
                     .json({ success: true, message: "User was registred" })
             } catch (error) {
                 console.log(error);
+                return res.status(500)
+                    .json({ success: false, message: "server error occurred" })
             }
         }
     }
 
-    private login() {
+    private login(): any {
         return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
             //get data from body
             const { email, password } = req.body;
@@ -72,26 +74,32 @@ export class AuthController {
                         .json({ success: false, message: "Wrong password" })
                 }
                 //create token and store it in a cookie
-                const token = userExist.generateAccessToken("1h")
-                res.cookie("jwt", token, { httpOnly: true })
+                const accessToken = userExist.generateAccessToken("15m")
+                const refreshToken = userExist.generateRefreshToken("2h") //for more secure authentication, not implemented yet
+                res.cookie("jwt", accessToken, { httpOnly: true })
                 return res.status(200) //ok
-                    .json({ success: true, message: "Login succeeded", token })
+                    .json({ success: true, message: "Login succeeded", accessToken, refreshToken })
             } catch (error) {
                 console.log(error);
+                return res.status(500)
+                    .json({ success: false, message: "server error occurred" })
 
             }
         }
     }
 
-    private logout() {
+    private logout(): any {
         return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
             try {
                 //replace jwt cookie with an empty one that last 1 ms
+                //note: token is still valid until expiration
                 res.cookie("jwt", "", { maxAge: 1, httpOnly: true })
                 return res.status(200)
                     .json({ success: true, message: "Logout succeeded" })
             } catch (error) {
                 console.log(error);
+                return res.status(500)
+                    .json({ success: false, message: "server error occurred" })
             }
         }
     }

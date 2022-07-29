@@ -9,10 +9,23 @@ import { IUser } from "../interfaces"
 
 
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, unique: true, required: true, },
-    password: { type: String, minlength: 6, required: true },
-    accessToken: { type: String },
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    password: {
+        type: String,
+        minLength: 6,
+        required: true
+    },
+    accessToken: {
+        type: String
+    },
 })
 
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
@@ -25,6 +38,14 @@ userSchema.methods.generateAccessToken = function (exp: string): string {
     let token = "";
     if (process.env.ACCESS_TOKEN) {
         token = jwt.sign({ id: this._id, email: this.email }, process.env.ACCESS_TOKEN, { expiresIn: exp })
+    }
+    return token
+};
+
+userSchema.methods.generateRefreshToken = function (exp: string): string {
+    let token = "";
+    if (process.env.REFRESH_TOKEN) {
+        token = jwt.sign({ id: this._id, email: this.email }, process.env.REFRESH_TOKEN, { expiresIn: exp })
     }
     return token
 };
