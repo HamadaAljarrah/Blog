@@ -1,32 +1,25 @@
 import express from "express"
+import { RouteConfig } from "./Common/RouteConfig";
 
 
 export class App {
-    public app: express.Application;
-    private port: number;
+    app: express.Application;
+    port: number;
+    routes: Array<RouteConfig>;
 
-    constructor(appInit: { port: number, controllers: Array<any>, middlewares: Array<any>, configs: Array<any> }) {
-        this.app = express();
-        this.port = appInit.port;
-        this.configs(appInit.configs)
-        this.middlewares(appInit.middlewares)
-        this.controllers(appInit.controllers)
+    constructor(appConfig: { port: number, app: express.Application, routes: Array<RouteConfig> }) {
+        this.app = appConfig.app;
+        this.port = appConfig.port;
+        this.routes = appConfig.routes
+        this.initRoutes()
     }
 
-    private middlewares(middlewares: any[]) {
-        middlewares.forEach(middleware => {
-            this.app.use(middleware.path ? middleware.path : "/", middleware.func)
-        })
-    }
 
-    private controllers(controllers: any[]) {
-        controllers.forEach(controller => {
-            this.app.use(controller.router)
-        })
-    }
-    private configs(configs: any[]) {
-        configs.forEach(config => {
-            this.app.set(config.name, config.value)
+
+    private initRoutes() {
+        this.routes.forEach(route => {
+            route.configureRoutes()
+            console.log(`Routes configured for ${route.getName()}`)
         })
     }
 
