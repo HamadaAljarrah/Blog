@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+export type MongoId = mongoose.Types.ObjectId
+
 class MongooseService {
     private numOfRetries = 0
     private mongooseOption = {
@@ -7,7 +9,6 @@ class MongooseService {
         useUnifiedTopology: true,
         useCreateIndex: true,
         serverSelectionTimeoutMS: 3000,
-        useFindAndModify: false,
     }
     constructor() {
         this.connect()

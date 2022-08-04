@@ -1,43 +1,71 @@
 import { IUser } from "./user.interface";
-import { UserDocument } from "./user.model";
 import User from "./user.model";
+import { ICheckResponse } from "../Common/interfaces";
+import { MongoId } from "../Common/services/mongoose.services";
 
-export async function getAllUsers(): Promise<Array<IUser>> {
-    return await User.find()
+
+
+export const getAllUsers = async (): Promise<Array<IUser> | Error> => {
+
+    const users: Array<IUser> = await User.find()
+    if (users == null) return new Error("Faild to get users")
+    return users
+
 }
 
-export async function getUser(id: string): Promise<UserDocument | Error> {
+
+export const getUser = async (id: MongoId): Promise<IUser | Error> => {
+
     const user = await User.findById({ _id: id })
-    if (user) {
-        return user
+    if (user == null) {
+        return new Error('User was not found')
     }
-    return new Error('User was not found')
+    return user
+
 }
 
-export async function validateBody(body: IUser) {
-    //all field is included
+
+export const validateBody = async (body: IUser): Promise<ICheckResponse> => {
+
     if (!(body.name && body.email && body.password))
-        return { status: 401, success: false, message: "All fields required" }
+        return {
+            status: 401,
+            success: false,
+            message: "All fields required"
+        }
 
-    //password length
     if (body.password.length < 6)
-        return { status: 401, success: false, message: "Password must be at least 6 charcaters long" }
+        return {
+            status: 401,
+            success: false,
+            message: "Password must be at least 6 charcaters long"
+        }
 
-    //check if user exist
     const userExist = await User.findOne({ email: body.email });
-    if (userExist != null)
-        return { status: 409, success: false, message: "User with this email already exist" }
+    if (userExist)
+        return {
+            status: 409,
+            success: false,
+            message: "User with this email already exist"
+        }
 
-    return { status: 200, success: true, message: "Valid body" }
-
-}
-export async function createNewUser(data: any) {
-    try {
-        await User.create(data)
-        return { status: 200, success: true, message: "User was created" }
-    } catch (error) {
-        return { status: 500, success: true, message: error }
+    return {
+        status: 200,
+        success: true,
+        message: "Valid body"
     }
 
+}
+
+export const createNewUser = async (data: IUser) => {
+
+    const newUser = new User(data)
+    await newUser.save()
+
+    return {
+        status: 200,
+        success: true,
+        message: "User was created"
+    }
 
 }

@@ -11,6 +11,10 @@ export class UserRoutes extends RouteConfig {
         this.app.route("/users").get([JWT.checkIfLoggedIn, UserController.getUsers])
         this.app.route("/users/:id").get([JWT.checkIfLoggedIn, UserController.readUser])
         this.app.route("/users").post([UserController.createUser])
+        this.app.route("/users/:id").put([UserController.updateUser])
+        this.app.route("/users/:id").delete([UserController.deleteUser])
+
+
 
         return this.app
     }

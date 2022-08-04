@@ -2,12 +2,12 @@ import { Document, Schema } from "mongoose";
 import MongooseService from "../Common/services/mongoose.services";
 import bcrypt from "bcrypt"
 
-
 export interface UserDocument extends Document {
     name: string;
     email: string;
     password: string;
 }
+
 
 const UserSchema: Schema = new Schema(
     {
