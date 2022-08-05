@@ -4,17 +4,17 @@ import JWT from "../Common/middlewares/jwt"
 import UserController from "./user.controller"
 
 export class UserRoutes extends RouteConfig {
+
     constructor(app: Application) {
         super(app, "UserRoutes")
     }
+
     configureRoutes(): Application {
-        this.app.route("/users").get([JWT.checkIfLoggedIn, UserController.getUsers])
-        this.app.route("/users/:id").get([JWT.checkIfLoggedIn, UserController.readUser])
-        this.app.route("/users").post([UserController.createUser])
-        this.app.route("/users/:id").put([UserController.updateUser])
-        this.app.route("/users/:id").delete([UserController.deleteUser])
 
-
+        this.app.route("/users").get([UserController.getUsers])
+        this.app.route("/users/:id").get([UserController.readUser])
+        this.app.route("/users/:id").put([JWT.checkIfLoggedIn, UserController.updateUser])
+        this.app.route("/users/:id").delete([JWT.checkIfLoggedIn, UserController.deleteUser])
 
         return this.app
     }

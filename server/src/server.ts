@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 import express from "express"
 import { App } from "./App";
+import { AuthRoutes } from "./Auth/auth.router.config";
 import { RouteConfig } from "./Common/RouteConfig";
 import { UserRoutes } from "./User/user.router.config";
 
@@ -11,7 +12,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-const routes: Array<RouteConfig> = [new UserRoutes(app)]
+const routes: Array<RouteConfig> = [new UserRoutes(app), new AuthRoutes(app)]
 const appConfig = {
     port: 4000,
     app: app,

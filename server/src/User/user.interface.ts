@@ -11,7 +11,9 @@ export interface IUser {
 
 
 
-export interface UserPostReq extends Request<{}, {}, IUser> { };
+export interface UserPostReq extends Request<{}, {}, IUser> {
+    user?: IUser;
+};
 export interface UserGetReq extends Request<{ id: UserDocument['_id'] }> { };
 export interface UserDeleteReq extends Request<{ id: UserDocument['_id'] }> { };
 export interface UserPutReq extends Request<{ id: UserDocument['_id'] }, any, IUser> { };

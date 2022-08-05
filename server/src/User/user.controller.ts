@@ -1,8 +1,8 @@
 import { Response } from "express"
-import { UserGetReq, UserPutReq, UserDeleteReq, UserPostReq } from "./user.interface";
-import { getAllUsers, getUser, validateBody, createNewUser } from "./user.service"
-import { IUser } from "./user.interface"
-import User from "./user.model";
+import { validateRegister } from "../Auth/auth.service";
+import { UserGetReq, UserPutReq, UserDeleteReq } from "./user.interface";
+import { getAllUsers, getUser, findUserById, removeUser, updateUser } from "./user.service"
+
 
 class UserController {
     constructor() { }
@@ -67,46 +67,12 @@ class UserController {
 
     }
 
-    //this method will be in auth class
-    async createUser(req: UserPostReq, res: Response) {
-
-        try {
-
-            const valResult = await validateBody(req.body);
-
-            if (!valResult.success) {
-                return res.status(valResult.status).json({
-                    success: false,
-                    message: valResult.message
-                })
-            }
-
-            const { name, email, password } = req.body;
-            const data: IUser = { name, email, password }
-            const UserResult = await createNewUser(data);
-
-            res.status(UserResult.status).json({
-                success: UserResult.success,
-                message: UserResult.message,
-            })
-
-        } catch (error) {
-
-            res.status(400).json({
-                success: false,
-                message: error,
-            })
-
-        }
-
-    }
-
     async updateUser(req: UserPutReq, res: Response) {
 
         try {
 
             const { id } = req.params;
-            const user = await User.findById(id)
+            const user = await findUserById(id)
 
             if (user === null) {
                 return res.status(404).json({
@@ -115,7 +81,7 @@ class UserController {
                 })
             }
 
-            const valResult = await validateBody(req.body);
+            const valResult = await validateRegister(req.body);
 
             if (!valResult.success) {
                 return res.status(valResult.status).json({
@@ -126,7 +92,7 @@ class UserController {
 
             const { name, email, password } = req.body;
             const updated = { name, email, password }
-            const updatedUser = await User.findOneAndUpdate({ _id: id }, updated);
+            const updatedUser = await updateUser(id, updated)
 
             if (updatedUser == null) {
                 return res.status(500).json({
@@ -156,7 +122,7 @@ class UserController {
         try {
 
             const { id } = req.params;
-            const user = await User.findById(id)
+            const user = await findUserById(id)
 
             if (user === null) {
                 return res.status(404).json({
@@ -166,9 +132,9 @@ class UserController {
             }
 
 
-            const deleteUser = await User.findOneAndDelete({ _id: id });
+            const deletedUser = await removeUser(id)
 
-            if (deleteUser == null) {
+            if (deletedUser == null) {
                 return res.status(500).json({
                     success: false,
                     message: "Faild to delete user",

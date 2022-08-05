@@ -7,7 +7,6 @@ class MongooseService {
     private mongooseOption = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true,
         serverSelectionTimeoutMS: 3000,
     }
     constructor() {
