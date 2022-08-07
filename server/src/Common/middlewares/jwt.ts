@@ -19,7 +19,6 @@ class JWT {
                         message: "Token Expired"
                     })
                 }
-                req.user = user
                 next()
             })
 

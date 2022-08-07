@@ -1,7 +1,6 @@
 import { Document, Schema } from "mongoose";
 import MongooseService from "../Common/services/mongoose.services";
 import bcrypt from "bcrypt"
-//import jwt from "jsonwebtoken"
 
 
 
@@ -11,9 +10,6 @@ export interface UserDocument extends Document {
     password: string;
 }
 
-
-
-// User schema
 const UserSchema: Schema = new Schema(
     {
         name: { type: String, required: true },
@@ -29,12 +25,6 @@ const UserSchema: Schema = new Schema(
     }
 )
 
-
-
-
-
-
-//User middleware
 UserSchema.pre("save", async function (next) {
     const User = this
     if (User.isModified("password")) {

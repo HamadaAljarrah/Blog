@@ -20,7 +20,7 @@ export const getUser = async (id: MongoId): Promise<IUser | Error> => {
 
 }
 
-export const findUserById = async (id: MongoId) => await User.findById(id)
-export const updateUser = async (id: MongoId, updated: IUser) => await User.findOneAndUpdate({ _id: id }, updated);
-export const removeUser = async (id: MongoId) => await User.findOneAndDelete({ _id: id });
+export const findUserById = async (id: MongoId): Promise<IUser | null> => await User.findById(id)
+export const updateUser = async (id: MongoId, updated: IUser): Promise<IUser | null> => await User.findOneAndUpdate({ _id: id }, updated);
+export const removeUser = async (id: MongoId): Promise<IUser | null> => await User.findOneAndDelete({ _id: id });
 

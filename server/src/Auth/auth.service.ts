@@ -88,16 +88,15 @@ export const createNewUser = async (data: IUser) => {
 }
 
 
-export const generateAccessToken = (payload: object, exp: string) => {
+export const generateAccessToken = (payload: object, exp: string): string => {
 
-    let secret = process.env.ACCESS_TOKEN || ""
+    let secret = process.env.ACCESS_TOKEN || "123123"
     return jwt.sign(payload, secret, { expiresIn: exp })
 }
 
 
-export const generateRefreshToken = (exp: string, payload: any) => {
-
-    let secret = process.env.REFRESH_TOKEN || "";
+export const generateRefreshToken = (payload: object, exp: string): string => {
+    let secret = process.env.REFRESH_TOKEN || "123123";
     return jwt.sign(payload, secret, { expiresIn: exp })
 
 }
