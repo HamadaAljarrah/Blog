@@ -1,0 +1,73 @@
+@import "../../styles/colors";
+@import "../../styles//reset";
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.75rem;
+    @include boxshadow;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+        width: calc(100%/3);
+        &:nth-child(2) {
+            justify-content: center;
+        }
+        &:last-child {
+            justify-content: flex-end;
+        }
+    }
+
+    a {
+        transition: all 0.2s ease-in-out;
+        &:hover:not(.register) {
+            color: $main-color;
+        }
+    }
+    .register {
+        background-color: $main-color;
+        padding: 0.6rem 1.25rem;
+        border-radius: 30px;
+        color: white;
+    }
+
+    p {
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        &:hover {
+            color: $main-color;
+        }
+    }
+}
+
+.light {
+    background-color: $background;
+
+    a {
+        color: $text-color;
+    }
+    h1 {
+        color: $text-color;
+    }
+    p {
+        color: $text-color;
+    }
+}
+.dark {
+    background-color: $background-dark;
+    a {
+        color: $text-color-dark;
+    }
+    h1 {
+        color: $text-color-dark;
+    }
+    p {
+        color: $text-color-dark;
+    }
+}

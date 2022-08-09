@@ -1,0 +1,47 @@
+@import "../../styles/colors";
+
+.input {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    label {
+        margin-bottom: 3px;
+    }
+    input {
+        height: 2.5rem;
+        border-radius: 4px;
+        padding: 1rem;
+        background-color: transparent;
+
+    }
+}
+
+.light {
+    label {
+        color: $text-color;
+    }
+    input {
+        color: $text-color;
+        border: solid 0.5px $border-color;
+        &::placeholder {
+            color: $placeholder-color;
+        }
+    }
+}
+
+.dark {
+    label {
+        color: $text-color-dark;
+        
+    }
+    input {
+        color: $text-color-dark;
+        border: none;
+        background-color: $field-color-dark;
+        &::placeholder {
+            color: $placeholder-color-dark;
+        }
+    }
+}

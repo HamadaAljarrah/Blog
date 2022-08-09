@@ -1,12 +1,21 @@
 import type { NextPage } from "next";
-import Link from "next/link";
+import Background from "../components/Background/Background";
+import Container from "../components/Container/Container";
+import { useTheme } from "../context/them.context";
+import classes from "./home.module.scss"
+
+
 const Home: NextPage = () => {
+    const { theme } = useTheme();
     return (
-        <div>
-            <h2>Welcome to bloggy</h2>
-            <Link href="login">Login</Link> <br />
-            <Link href="register">Register</Link>
-        </div>
+        <Background>
+            <Container>
+                <div className={`${classes.wrapper} ${classes[theme]}`}>
+                    <h1>Lading page...</h1>
+                </div>
+            </Container>
+        </Background>
+
     );
 };
 

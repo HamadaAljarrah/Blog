@@ -79,14 +79,15 @@ class BlogController {
             }
             const createAt = getCurrentTime();
             const readTime = calcReadTime(req.body.content) + calcReadTime(req.body.snippet)
-            const newBlog = await createNewBlog(data, readTime, createAt);
-
-            res.status(200).json({
-                success: true,
-                message: "Blog was created",
-                data: newBlog
-            })
-
+            const newBlog = await createNewBlog(data, readTime, createAt)
+                .then(() => {
+                    res.status(200).json({
+                        success: true,
+                        message: "Blog was created",
+                        data: newBlog
+                    })
+                })
+                
         } catch (error) {
             res.status(400).json({
                 success: false,

@@ -15,7 +15,7 @@ export const getBlog = async (id: MongoId): Promise<IBlog | null> => {
 }
 
 
-export const validateBlogContent = (data: Omit<IBlog, "date">): ICheckResponse => {
+export const validateBlogContent = (data: Omit<IBlog, "createAt" | "readTime">): ICheckResponse => {
 
     const { title, snippet, content, auther, category } = data
     if (!(title && snippet && content && auther && category)) {

@@ -2,35 +2,24 @@ import { NextComponentType } from "next";
 import React from "react";
 import Link from "next/link";
 import classes from "../register/register.module.scss";
+import { useTheme } from "../../context/them.context";
+import Container from "../../components/Container/Container";
+import { Input } from "../../components/Input/Input";
+
 const Login: NextComponentType = () => {
+    const {theme} = useTheme();
     return (
-        <form className={classes.form}>
+        <Container>
+        <form className={`${classes.form} ${classes[theme]}`}>
             <h1>Login</h1>
-            <div className={classes.input_row}>
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="email"
-                    required
-                />
-            </div>
-            <div className={classes.input_row}>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="password"
-                    required
-                />
-            </div>
+            <Input type="email" forNameId="email" label="Email" placeholder="e.g hamada@hotmail.com"/>
+            <Input type="password" forNameId="password" label="Password" placeholder="e.g 123456"/>
             <button type="submit">Login</button>
             <p>
                 Don't have an account? <Link href="register">Register</Link>
             </p>
         </form>
+        </Container>
     );
 };
 

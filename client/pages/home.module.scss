@@ -1,0 +1,19 @@
+@import "../styles//colors";
+
+.wrapper {
+    h1 {
+        text-align: center;
+    }
+}
+
+.light {
+    h1 {
+        color: $text-color;
+    }
+}
+
+.dark {
+    h1 {
+        color: $text-color-dark;
+    }
+}
