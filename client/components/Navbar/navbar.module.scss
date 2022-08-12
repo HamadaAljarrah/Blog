@@ -10,6 +10,8 @@
     border-radius: 10px;
     margin-bottom: 1.75rem;
     @include boxshadow;
+    position: relative;
+    transition: background 0.2s ease-in-out;
 
     div {
         display: flex;
@@ -25,7 +27,7 @@
     }
 
     a {
-        transition: all 0.2s ease-in-out;
+        transition: color 0.2s ease-in-out;
         &:hover:not(.register) {
             color: $main-color;
         }
@@ -37,9 +39,15 @@
         color: white;
     }
 
-    p {
-        transition: all 0.2s ease-in-out;
+    button {
+        transition: color 0.2s ease-in-out;
         cursor: pointer;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        position: absolute;
+        right: 5px;
+        bottom: -30px;
         &:hover {
             color: $main-color;
         }
@@ -55,7 +63,7 @@
     h1 {
         color: $text-color;
     }
-    p {
+    button {
         color: $text-color;
     }
 }
@@ -67,7 +75,7 @@
     h1 {
         color: $text-color-dark;
     }
-    p {
+    button {
         color: $text-color-dark;
     }
 }

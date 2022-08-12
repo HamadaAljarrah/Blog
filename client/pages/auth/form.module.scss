@@ -13,6 +13,7 @@
     justify-content: center;
     align-items: stretch;
     gap: 20px;
+    transition: background 0.2s ease-in-out;
 
     .message {
         color: rgb(243, 17, 17);
@@ -29,7 +30,12 @@
         border-radius: 4px;
         font-weight: 500;
         margin-top: 10px;
+        transition: transform 0.2s ease-in-out;
         cursor: pointer;
+
+        &:hover{
+            transform: scale(1.02);
+        }
     }
 
     a {
@@ -37,6 +43,7 @@
     }
     p {
         font-size: .85rem;
+        transition: color 0.2s ease-in-out;
     }
     h1 {
         color: $main-color;

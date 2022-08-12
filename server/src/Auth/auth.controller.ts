@@ -8,6 +8,7 @@ class AuthController {
     constructor() { }
 
     async login(req: UserPostReq, res: Response) {
+        
         try {
 
             const valResult = await validateLogin(req.body);
@@ -20,11 +21,9 @@ class AuthController {
             }
 
 
-            const token = generateAccessToken({ id: await valResult.data._id }, "1d")
+            const token = generateAccessToken({ id: await valResult.data._id, email: await valResult.data.email  }, "1d")
 
-
-
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: "You are logged in",
                 token: token

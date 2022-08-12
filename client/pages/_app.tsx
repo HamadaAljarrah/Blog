@@ -9,12 +9,12 @@ import "../styles/globals.scss"
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemProvider>
-            <Background>
-                <Container>
-                    <Navbar />
-                </Container>
-                <Component {...pageProps} />
-            </Background>
+                <Background>
+                    <Container>
+                        <Navbar />
+                    </Container>
+                    <Component {...pageProps} />
+                </Background>
         </ThemProvider>
 
     );

@@ -10,7 +10,7 @@ type Props = {
 }
 
 
-export const Input = ({ label, type, placeholder, forNameId }: Props) => {
+const Input = ({ label, type, placeholder, forNameId }: Props) => {
     const { theme } = useTheme();
     return (
         <div className={`${classes.input} ${classes[theme]}`}>
@@ -25,3 +25,5 @@ export const Input = ({ label, type, placeholder, forNameId }: Props) => {
         </div>
     )
 }
+
+export default Input;

@@ -8,13 +8,20 @@
     width: 100%;
     label {
         margin-bottom: 3px;
+        transition: color 0.2s ease-in-out;
     }
     input {
         height: 2.5rem;
         border-radius: 4px;
         padding: 1rem;
         background-color: transparent;
-
+        transition: background 0.2s ease-in-out;
+        &:focus {
+            outline: solid 1px $main-color;
+        }
+        &::placeholder {
+            transition: color 0.2s ease-in-out;
+        }
     }
 }
 
@@ -34,7 +41,6 @@
 .dark {
     label {
         color: $text-color-dark;
-        
     }
     input {
         color: $text-color-dark;
