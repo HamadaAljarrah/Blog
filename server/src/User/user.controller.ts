@@ -36,6 +36,21 @@ class UserController {
         }
     }
 
+    async getCurrentUser(req: UserReq, res: Response) {
+        if (req.userId == null) {
+            return res.status(403).json({
+                success: false,
+                message: "User is not loggedin",
+            })
+        }
+        const user = await findUserById(req.userId)
+        return res.status(200).json({
+            success: true,
+            message: "User is loggedin",
+            data: user
+        })
+    }
+
     async readUser(req: UserReq, res: Response) {
 
         try {
@@ -50,7 +65,7 @@ class UserController {
                 })
             }
 
-            res.json({
+            res.status(200).json({
                 success: true,
                 message: "User was found",
                 data: user

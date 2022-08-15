@@ -21,7 +21,12 @@ class AuthController {
             }
 
 
-            const token = generateAccessToken({ id: await valResult.data._id, email: await valResult.data.email }, "1d")
+            const token = generateAccessToken(
+                {
+                    id: await valResult.data._id,
+                    email: await valResult.data.email
+                }
+                , "15s")
 
             return res.status(200).json({
                 success: true,

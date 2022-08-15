@@ -7,6 +7,7 @@ import Input from "../../../components/Input/Input";
 import { submitForm } from "../form.logic";
 import Router from "next/router";
 import { isAuthenticated } from "../../../variables";
+import axios from "axios";
 
 
 
@@ -19,6 +20,7 @@ const Login = () => {
 
     const submitHandler = submitForm("/auth/login", "POST", (result: any) => {
         if (result.success) {
+            localStorage.setItem("token", result.token);
             return Router.push("/profile");
         }
         setMessage(result.message);

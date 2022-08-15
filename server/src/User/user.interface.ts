@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { MongoId } from "../Common/services/mongoose.services";
 import { UserDocument } from "./user.model";
 
 
@@ -12,7 +13,7 @@ export interface IUser {
 
 
 export interface UserReq extends Request<{ id: UserDocument['_id'] }, any, IUser> {
-    user?: IUser
+    userId?: MongoId
 };
 // export interface UserGetReq extends Request<{ id: UserDocument['_id'] }> { };
 // export interface UserDeleteReq extends Request<{ id: UserDocument['_id'] }> { };

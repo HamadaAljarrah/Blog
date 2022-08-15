@@ -19,13 +19,13 @@ class JWT {
                         message: "Token Expired"
                     })
                 }
-                req.user = user;
+                req.userId = user.id;
                 next()
             })
 
         } else {
 
-            res.status(403).json({ success: false, message: "Login to access" })
+            res.status(403).json({ success: false, message: "unauthorized" })
 
         }
     }
