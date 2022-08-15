@@ -1,5 +1,5 @@
 import { Response } from "express"
-import { BlogDeleteReq, BlogGetReq, BlogPostReq, BlogPutReq, IBlog } from "./blog.interface"
+import { BlogReq, IBlog } from "./blog.interface"
 import { fetchBlogs, getBlog, validateBlogContent, createNewBlog, updateBlog, getCurrentTime, calcReadTime, removeBlog } from "./blog.service";
 
 
@@ -7,7 +7,7 @@ import { fetchBlogs, getBlog, validateBlogContent, createNewBlog, updateBlog, ge
 class BlogController {
     constructor() { }
 
-    async getAllBlogs(req: BlogGetReq, res: Response) {
+    async getAllBlogs(req: BlogReq, res: Response) {
 
         try {
 
@@ -38,7 +38,7 @@ class BlogController {
 
     }
 
-    async readBlog(req: BlogGetReq, res: Response) {
+    async readBlog(req: BlogReq, res: Response) {
         try {
 
             const { id } = req.params;
@@ -66,7 +66,7 @@ class BlogController {
 
         }
     }
-    async createBlog(req: BlogPostReq, res: Response) {
+    async createBlog(req: BlogReq, res: Response) {
         try {
 
             const data = req.body
@@ -79,15 +79,16 @@ class BlogController {
             }
             const createAt = getCurrentTime();
             const readTime = calcReadTime(req.body.content) + calcReadTime(req.body.snippet)
-            const newBlog = await createNewBlog(data, readTime, createAt)
-                .then(() => {
+
+            createNewBlog(data, readTime, createAt)
+                .then((newBlog) => {
                     res.status(200).json({
                         success: true,
                         message: "Blog was created",
                         data: newBlog
                     })
                 })
-                
+
         } catch (error) {
             res.status(400).json({
                 success: false,
@@ -96,7 +97,7 @@ class BlogController {
         }
     }
 
-    async updateBlog(req: BlogPutReq, res: Response) {
+    async updateBlog(req: BlogReq, res: Response) {
         try {
             const { id } = req.params;
             const blog = await getBlog(id);
@@ -129,13 +130,17 @@ class BlogController {
                 readTime: readTime,
                 edited: edited,
             }
+
             await updateBlog(id, updated)
-                .then(() => {
-                    return res.status(200).json({
+                .then((updatedBlog) => {
+                    res.status(200).json({
                         success: true,
                         message: "Blog was updated",
+                        data: updatedBlog
                     })
                 })
+
+
         } catch (error) {
 
             res.status(400).json({
@@ -145,7 +150,7 @@ class BlogController {
         }
     }
 
-    async deleteBlog(req: BlogDeleteReq, res: Response) {
+    async deleteBlog(req: BlogReq, res: Response) {
         try {
             const { id } = req.params;
             const blog = await getBlog(id);
@@ -158,12 +163,14 @@ class BlogController {
             }
 
             await removeBlog(id)
-                .then(() => {
+                .then((deletedBlog) => {
                     return res.status(200).json({
                         success: true,
                         message: "Blog was deleted",
+                        data: deletedBlog
                     })
                 })
+
         } catch (error) {
             res.status(400).json({
                 success: false,

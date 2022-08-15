@@ -1,12 +1,12 @@
-import { NextComponentType } from 'next'
 import React from 'react'
 import Container from '../../layouts/Container/Container'
 
-const About: NextComponentType = () => {
+const Blogs = (): JSX.Element => {
     return (
         <Container>
-            <h1>About page</h1>
+            <h1>Blogs page</h1>
         </Container>
     )
 }
-export default About
+
+export default Blogs

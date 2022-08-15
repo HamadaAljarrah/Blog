@@ -3,6 +3,8 @@ import React from 'react'
 import Link from 'next/link'
 import classes from "./navbar.module.scss"
 import { useTheme } from '../../context/them.context'
+import { isAuthenticated } from '../../variables'
+
 
 
 const Navbar: NextComponentType = () => {
@@ -17,17 +19,29 @@ const Navbar: NextComponentType = () => {
             <div>
                 <Link href="/">Home</Link>
                 <Link href="/blogs">Blogs</Link>
-                <Link href="/createBlog">Create</Link>
+                <Link href="/blogs/create">Create</Link>
                 <Link href="/about">About</Link>
 
             </div>
 
             <div>
-                <Link href="/profile">Profile</Link>
-                <Link href="/auth/login">Login</Link>
-                <Link href="/auth/register">
-                    <a className={classes.register}>Register</a>
-                </Link>
+                {
+                    isAuthenticated ?
+                        <>
+                            <Link href="/profile">Profile</Link>
+
+                        </>
+
+                        :
+                        <>
+                            <Link href="/auth/login">Login</Link>
+                            <Link href="/auth/register">
+                                <a className={classes.register}>Register</a>
+                            </Link>
+                        </>
+                }
+
+
 
                 <button onClick={toggleTheme}>{theme === 'dark' ? 'Change to light' : 'Change to dark '}</button>
             </div>

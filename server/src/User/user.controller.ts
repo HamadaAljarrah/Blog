@@ -1,13 +1,13 @@
 import { Response } from "express"
 import { validateRegister } from "../Auth/auth.service";
-import { UserGetReq, UserPutReq, UserDeleteReq } from "./user.interface";
+import { UserReq } from "./user.interface";
 import { getAllUsers, getUser, findUserById, removeUser, updateUser } from "./user.service"
 
 
 class UserController {
     constructor() { }
 
-    async getUsers(req: UserGetReq, res: Response) {
+    async getUsers(req: UserReq, res: Response) {
 
         try {
 
@@ -36,7 +36,7 @@ class UserController {
         }
     }
 
-    async readUser(req: UserGetReq, res: Response) {
+    async readUser(req: UserReq, res: Response) {
 
         try {
 
@@ -67,7 +67,7 @@ class UserController {
 
     }
 
-    async updateUser(req: UserPutReq, res: Response) {
+    async updateUser(req: UserReq, res: Response) {
 
         try {
 
@@ -118,7 +118,7 @@ class UserController {
 
     }
 
-    async deleteUser(req: UserDeleteReq, res: Response) {
+    async deleteUser(req: UserReq, res: Response) {
         try {
 
             const { id } = req.params;

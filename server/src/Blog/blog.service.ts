@@ -70,10 +70,12 @@ export const createNewBlog =
     }
 
 
-export const updateBlog = async (id: MongoId, updated: Omit<IBlog, "createAt">): Promise<void> => {
-    await Blog.findOneAndUpdate(id, updated);
+export const updateBlog = async (id: MongoId, updated: Omit<IBlog, "createAt">): Promise<IBlog | null> => {
+    const updatedBlog = await Blog.findOneAndUpdate({ _id: id }, updated);
+    return updatedBlog
 }
 
-export const removeBlog = async (id: MongoId): Promise<void> => {
-    await Blog.findOneAndDelete(id);
+export const removeBlog = async (id: MongoId): Promise<IBlog | null> => {
+    const deletedBlog = await Blog.findOneAndDelete({ _id: id });
+    return deletedBlog
 }

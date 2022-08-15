@@ -1,18 +1,23 @@
-import { NextComponentType } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import classes from "../form.module.scss";
 import { useTheme } from "../../../context/them.context";
-import Container from "../../../components/Container/Container";
+import Container from "../../../layouts/Container/Container";
 import Input from "../../../components/Input/Input";
 import { submitForm } from "../form.logic";
 import Router from "next/router";
+import { isAuthenticated } from "../../../variables";
 
-const Login: NextComponentType = () => {
+
+
+
+const Login = () => {
+    useEffect(() => { isAuthenticated && Router.push("/profile") }, [])
+
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
 
-    const submitHandler = submitForm("auth/login", "POST", (result: any) => {
+    const submitHandler = submitForm("/auth/login", "POST", (result: any) => {
         if (result.success) {
             return Router.push("/profile");
         }
@@ -21,7 +26,6 @@ const Login: NextComponentType = () => {
 
     return (
         <Container>
-
             <form onSubmit={submitHandler} className={`${classes.form} ${classes[theme]}`}>
                 <h1>Login</h1>
                 {message && <p className={classes.message}>{message}</p>}

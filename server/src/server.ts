@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-if (process.env.NODE_ENV !== "production") {dotenv.config()}
+if (process.env.NODE_ENV !== "production") { dotenv.config() }
 import express from "express"
 import { App } from "./App"
 import { AuthRoutes } from "./Auth/auth.router.config";
@@ -11,9 +11,7 @@ import cors from "cors"
 const app = express();
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(cors({
-    origin: '*',
-}))
+app.use(cors())
 
 const routes: Array<RouteConfig> = [
     new UserRoutes(app),
@@ -21,10 +19,10 @@ const routes: Array<RouteConfig> = [
     new BlogRoutes(app)
 ]
 
-const appConfig = {
+
+const server = new App({
     port: 4000,
     app: app,
     routes: routes
-}
-const server = new App(appConfig)
+})
 server.listen();

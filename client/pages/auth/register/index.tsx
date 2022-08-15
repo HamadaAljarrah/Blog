@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import { NextComponentType } from "next";
+import React, { useEffect, useState } from "react";
 import { submitForm } from "../form.logic";
 import Link from "next/link";
 import classes from "../form.module.scss";
 import Router from "next/router";
 import { useTheme } from "../../../context/them.context";
 import Input from "../../../components/Input/Input";
-import Container from "../../../components/Container/Container";
+import Container from "../../../layouts/Container/Container";
+import { isAuthenticated } from "../../../variables";
 
-const Register: NextComponentType = () => {
+
+
+const Register = () => {
+    useEffect(() => { isAuthenticated && Router.push("/profile") }, [])
 
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
 
-    const submitHandler = submitForm("auth/register", "POST", (result: any) => {
+    const submitHandler = submitForm("/auth/register", "POST", (result: any) => {
         if (result.success) return Router.push("auth/login");
         setMessage(result.message);
     });

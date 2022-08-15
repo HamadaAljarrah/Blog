@@ -1,11 +1,11 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken"
-import { UserPostReq } from "../../User/user.interface";
+import { UserReq } from "../../User/user.interface";
 
 const secret = process.env.ACCESS_TOKEN || ""
 class JWT {
 
-    checkIfLoggedIn(req: UserPostReq, res: Response, next: NextFunction) {
+    checkIfLoggedIn(req: UserReq, res: Response, next: NextFunction) {
 
         const authHeader = req.headers.authorization
         if (authHeader && authHeader !== "null") {
@@ -19,6 +19,7 @@ class JWT {
                         message: "Token Expired"
                     })
                 }
+                req.user = user;
                 next()
             })
 

@@ -1,29 +1,30 @@
 import React from 'react'
-import Container from '../../components/Container/Container'
+import Container from '../../layouts/Container/Container'
 import classes from "./profile.module.scss"
 import { useTheme } from '../../context/them.context'
-import Protected from '../../components/Protected/Protected'
+import { Protected } from '../../layouts/Protected'
 
 
 
 const Profile = () => {
 
     const { theme } = useTheme();
-    const isAuth = true;
+
     return (
-        <Protected isAuth={isAuth}>
+        <Protected>
             <Container>
                 <div className={`${classes.container} ${classes[theme]}`}>
                     <h1>Profile</h1>
                     <div>
-                        <p><strong>Name: </strong>Hamada</p>
-                        <p><strong>Email: </strong>Hamada@gmail.com</p>
-                        <p><strong>ID: </strong>123abc</p>
+                        <p><strong>Name: </strong>data</p>
+                        <p><strong>Email: </strong>data</p>
+                        <p><strong>ID: </strong>data</p>
                     </div>
                     <button>Logout</button>
                 </div>
             </Container>
         </Protected>
+
 
     )
 }

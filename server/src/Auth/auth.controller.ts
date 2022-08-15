@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { UserPostReq } from "../User/user.interface";
+import { UserReq } from "../User/user.interface";
 import { createNewUser, generateAccessToken, validateLogin, validateRegister } from "./auth.service";
 import { IUser } from "../User/user.interface"
 
@@ -7,8 +7,8 @@ import { IUser } from "../User/user.interface"
 class AuthController {
     constructor() { }
 
-    async login(req: UserPostReq, res: Response) {
-        
+    async login(req: UserReq, res: Response) {
+
         try {
 
             const valResult = await validateLogin(req.body);
@@ -21,7 +21,7 @@ class AuthController {
             }
 
 
-            const token = generateAccessToken({ id: await valResult.data._id, email: await valResult.data.email  }, "1d")
+            const token = generateAccessToken({ id: await valResult.data._id, email: await valResult.data.email }, "1d")
 
             return res.status(200).json({
                 success: true,
@@ -41,7 +41,7 @@ class AuthController {
 
     }
 
-    async register(req: UserPostReq, res: Response) {
+    async register(req: UserReq, res: Response) {
 
         try {
 
