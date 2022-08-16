@@ -6,12 +6,11 @@ import Router from "next/router";
 import { useTheme } from "../../../context/them.context";
 import Input from "../../../components/Input/Input";
 import Container from "../../../layouts/Container/Container";
-import { isAuthenticated } from "../../../variables";
+import { NextPage } from "next";
 
 
 
-const Register = () => {
-    useEffect(() => { isAuthenticated && Router.push("/profile") }, [])
+const Register: NextPage = (): JSX.Element => {
 
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();

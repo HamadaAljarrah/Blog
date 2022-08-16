@@ -46,7 +46,7 @@ class UserController {
         const user = await findUserById(req.userId)
         return res.status(200).json({
             success: true,
-            message: "User is loggedin",
+            message: "Got the current user successfully",
             data: user
         })
     }

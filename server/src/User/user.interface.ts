@@ -14,6 +14,7 @@ export interface IUser {
 
 export interface UserReq extends Request<{ id: UserDocument['_id'] }, any, IUser> {
     userId?: MongoId
+    user?: Omit<IUser, 'password'>
 };
 // export interface UserGetReq extends Request<{ id: UserDocument['_id'] }> { };
 // export interface UserDeleteReq extends Request<{ id: UserDocument['_id'] }> { };

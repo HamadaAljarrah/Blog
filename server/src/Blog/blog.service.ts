@@ -9,13 +9,39 @@ export const fetchBlogs = async (): Promise<Array<IBlog>> => {
     return blogs
 }
 
-
 export const getBlog = async (id: MongoId): Promise<IBlog | null> => {
     return await Blog.findById(id)
 }
 
+export const createNewBlog =
+    async (data: Omit<IBlog, "createAt" & "readTime">, readTime: number, createAt: string)
+        : Promise<IBlog> => {
+        const newBlog = new Blog({
+            title: data.title,
+            snippet: data.snippet,
+            content: data.content,
+            auther: data.auther,
+            category: data.category,
+            readTime: readTime,
+            createAt: createAt,
+        })
 
-export const validateBlogContent = (data: Omit<IBlog, "createAt" | "readTime">): ICheckResponse => {
+        await newBlog.save();
+        return newBlog
+    }
+
+export const updateBlog = async (id: MongoId, updated: Omit<IBlog, "createAt">): Promise<IBlog | null> => {
+    const updatedBlog = await Blog.findOneAndUpdate({ _id: id }, updated);
+    return updatedBlog
+}
+
+export const removeBlog = async (id: MongoId): Promise<IBlog | null> => {
+    const deletedBlog = await Blog.findOneAndDelete({ _id: id });
+    return deletedBlog
+}
+
+
+export const validateBlogContent = (data: Omit<IBlog, "createAt" & "readTime">): ICheckResponse => {
 
     const { title, snippet, content, auther, category } = data
     if (!(title && snippet && content && auther && category)) {
@@ -52,30 +78,3 @@ export const getCurrentTime = (): string => {
         })
 }
 
-export const createNewBlog =
-    async (data: Omit<IBlog, "createAt" | "readTime">, readTime: number, createAt: string)
-        : Promise<IBlog> => {
-        const newBlog = new Blog({
-            title: data.title,
-            snippet: data.snippet,
-            content: data.content,
-            auther: data.auther,
-            category: data.category,
-            readTime: readTime,
-            createAt: createAt,
-        })
-
-        await newBlog.save();
-        return newBlog
-    }
-
-
-export const updateBlog = async (id: MongoId, updated: Omit<IBlog, "createAt">): Promise<IBlog | null> => {
-    const updatedBlog = await Blog.findOneAndUpdate({ _id: id }, updated);
-    return updatedBlog
-}
-
-export const removeBlog = async (id: MongoId): Promise<IBlog | null> => {
-    const deletedBlog = await Blog.findOneAndDelete({ _id: id });
-    return deletedBlog
-}

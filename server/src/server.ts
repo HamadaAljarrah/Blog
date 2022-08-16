@@ -1,12 +1,15 @@
 import dotenv from "dotenv"
 if (process.env.NODE_ENV !== "production") { dotenv.config() }
 import express from "express"
-import { App } from "./App"
-import { AuthRoutes } from "./Auth/auth.router.config";
-import { BlogRoutes } from "./Blog/blog.route.config";
-import { RouteConfig } from "./Common/RouteConfig";
-import { UserRoutes } from "./User/user.router.config";
 import cors from "cors"
+
+import { App } from "./App"
+import { RouteConfig } from "./Common/RouteConfig";
+
+import { AuthRoutes } from "./Auth/auth.router.config";
+import { BlogRoutes } from "./Blog/blog.router.config";
+import { UserRoutes } from "./User/user.router.config";
+
 
 const app = express();
 app.use(express.urlencoded({ extended: false }))

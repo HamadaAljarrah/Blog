@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import classes from "../form.module.scss";
 import { useTheme } from "../../../context/them.context";
@@ -6,21 +6,21 @@ import Container from "../../../layouts/Container/Container";
 import Input from "../../../components/Input/Input";
 import { submitForm } from "../form.logic";
 import Router from "next/router";
-import { isAuthenticated } from "../../../variables";
-import axios from "axios";
+import { NextPage } from "next";
+import { setWithExpiry } from "../../../helpers/jwt";
 
 
 
 
-const Login = () => {
-    useEffect(() => { isAuthenticated && Router.push("/profile") }, [])
+const Login: NextPage = (): JSX.Element => {
 
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
 
     const submitHandler = submitForm("/auth/login", "POST", (result: any) => {
         if (result.success) {
-            localStorage.setItem("token", result.token);
+            const oneHour = 1000 * 3
+            setWithExpiry("token", result.token, oneHour);
             return Router.push("/profile");
         }
         setMessage(result.message);

@@ -5,16 +5,19 @@ import Background from "../layouts/Background/Background";
 import Container from "../layouts/Container/Container";
 import Navbar from "../layouts/Navbar/Navbar";
 import "../styles/globals.scss"
+import { AuthProvider } from "../context/auth.context";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemProvider>
-            <Background>
-                <Container>
-                    <Navbar />
-                </Container>
-                <Component {...pageProps} />
-            </Background>
+            <AuthProvider>
+                <Background>
+                    <Container>
+                        <Navbar />
+                    </Container>
+                    <Component {...pageProps} />
+                </Background>
+            </AuthProvider>
         </ThemProvider>
 
     );
