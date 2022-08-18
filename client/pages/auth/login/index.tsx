@@ -8,6 +8,7 @@ import { submitForm } from "../form.logic";
 import Router from "next/router";
 import { NextPage } from "next";
 import { setWithExpiry } from "../../../helpers/jwt";
+import Button from "../../../components/Button/Button";
 
 
 
@@ -16,10 +17,9 @@ const Login: NextPage = (): JSX.Element => {
 
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
-
-    const submitHandler = submitForm("/auth/login", "POST", (result: any) => {
+    const submitHandler = submitForm({ path: "/auth/login", method: "POST" }, (result: any) => {
         if (result.success) {
-            const oneHour = 1000 * 3
+            const oneHour = 1000 * 60 * 15
             setWithExpiry("token", result.token, oneHour);
             return Router.push("/profile");
         }
@@ -31,10 +31,10 @@ const Login: NextPage = (): JSX.Element => {
             <form onSubmit={submitHandler} className={`${classes.form} ${classes[theme]}`}>
                 <h1>Login</h1>
                 {message && <p className={classes.message}>{message}</p>}
-                <Input type="email" forNameId="email" label="Email" placeholder="Email" />
-                <Input type="password" forNameId="password" label="Password" placeholder="Password" />
-                <button type="submit">Login</button>
-                <p>Don't have an account? <Link href="register">Register</Link></p>
+                <Input type="email" forNameId="email" label="Email" placeholder="Enter your email" />
+                <Input type="password" forNameId="password" label="Password" placeholder="Enter your password" />
+                <Button type="submit" text="login" />
+                <p>Don't have an account? <Link href="register">Sign up</Link></p>
             </form>
         </Container>
     );

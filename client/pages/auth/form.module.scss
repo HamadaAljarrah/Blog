@@ -1,18 +1,16 @@
-@import "../../styles//colors";
-@import "../../styles//reset";
+@import '../../styles//colors';
+@import '../../styles/variables';
 
 .form {
-    width: clamp(20rem, 50%, 30rem);
+    width: clamp(25rem, 60%, 34rem);
     margin: auto;
     margin-top: 100px;
-    padding: 30px;
-    border-radius: 10px;
-    @include boxshadow;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    gap: 20px;
+    gap: 40px;
     transition: background 0.2s ease-in-out;
 
     .message {
@@ -21,46 +19,55 @@
         display: inline-block;
     }
 
-    button {
-        background-color: $main-color;
-        border: none;
-        color: white;
-        height: 2.5rem;
-        font-size: 1rem;
-        border-radius: 4px;
-        font-weight: 500;
-        margin-top: 10px;
-        transition: transform 0.2s ease-in-out;
-        cursor: pointer;
-
-        &:hover {
-            transform: scale(1.02);
-        }
-    }
-
     a {
-        color: $main-color;
+        text-decoration: underline;
     }
     p {
         font-size: 0.85rem;
         transition: color 0.2s ease-in-out;
+        text-align: center;
     }
     h1 {
-        color: $main-color;
         text-align: center;
+    }
+
+    @media screen and (max-width: $tablet) {
+        width: clamp(25rem, 80%, 34rem);
+    }
+
+    @media screen and (max-width: $phone) {
+        gap: 30px;
+        margin-top: 60px;
+        width: 100%;
     }
 }
 
 .light {
     background-color: $background;
+    border: 0.25px solid $border-color;
+
+    h1 {
+        color: $text-color;
+    }
     p {
+        color: $text-color;
+    }
+    a {
         color: $text-color;
     }
 }
 
 .dark {
     background-color: $background-dark;
+    border: none;
+
+    h1 {
+        color: $text-color-dark;
+    }
     p {
+        color: $text-color-dark;
+    }
+    a {
         color: $text-color-dark;
     }
 }

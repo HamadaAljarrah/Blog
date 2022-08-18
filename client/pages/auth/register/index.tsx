@@ -7,6 +7,7 @@ import { useTheme } from "../../../context/them.context";
 import Input from "../../../components/Input/Input";
 import Container from "../../../layouts/Container/Container";
 import { NextPage } from "next";
+import Button from "../../../components/Button/Button";
 
 
 
@@ -15,7 +16,7 @@ const Register: NextPage = (): JSX.Element => {
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
 
-    const submitHandler = submitForm("/auth/register", "POST", (result: any) => {
+    const submitHandler = submitForm({ path: "/auth/register", method: "POST" }, (result: any) => {
         if (result.success) return Router.push("auth/login");
         setMessage(result.message);
     });
@@ -24,12 +25,12 @@ const Register: NextPage = (): JSX.Element => {
         <Container>
             <form className={`${classes.form} ${classes[theme]}`} onSubmit={submitHandler}>
 
-                <h1>Register</h1>
+                <h1>Sign up</h1>
                 {message && <p className={classes.message}>{message}</p>}
-                <Input forNameId="name" label="Name" type="text" placeholder="Username" />
-                <Input forNameId="email" label="Email" type="email" placeholder="Email" />
-                <Input forNameId="password" label="Password" type="password" placeholder="Password" />
-                <button type="submit">Register</button>
+                <Input forNameId="name" label="Name" type="text" placeholder="Enter your username" />
+                <Input forNameId="email" label="Email" type="email" placeholder="Enter your email" />
+                <Input forNameId="password" label="Password" type="password" placeholder="Enter your password" />
+                <Button type="submit" text="login" />
                 <p>Already have an account? <Link className={classes.link} href="login">Login</Link></p>
 
             </form>

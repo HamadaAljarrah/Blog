@@ -14,8 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Background>
                     <Container>
                         <Navbar />
+                        <Component {...pageProps} />
                     </Container>
-                    <Component {...pageProps} />
                 </Background>
             </AuthProvider>
         </ThemProvider>

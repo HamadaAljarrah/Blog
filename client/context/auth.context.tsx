@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { getWithExpiry } from "../helpers/jwt";
 
 
 type Props = {
@@ -6,10 +7,19 @@ type Props = {
 }
 
 
-const authContext = createContext(false)
+const authContext: any = createContext({})
 export const AuthProvider = ({ children }: Props) => {
+    let authStatus: boolean;
+    let checkAuth: any;
+    useEffect(() => {
+        checkAuth = getWithExpiry("token");
+
+    })
+
+    checkAuth == null ? authStatus = false : authStatus = true;
+    const [isAthenticated, setIsAuthenticated] = useState<boolean>(authStatus)
     return (
-        <authContext.Provider value={true}>
+        <authContext.Provider value={{ isAthenticated, setIsAuthenticated }}>
             {children}
         </authContext.Provider>
     )

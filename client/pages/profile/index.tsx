@@ -19,22 +19,18 @@ const Profile: NextPage = (): JSX.Element => {
     const [user, setUser] = useState<User>()
     const [error, setError] = useState<any>()
 
-    const getData = async () => {
-        await sendRequsetWithToken({ path: "/user" }, (result: any) => {
+    const getData = () => {
+        sendRequsetWithToken({ path: "/user" }, (result: any) => {
             if (!result.success) {
                 setError(result.message)
                 return Router.push("/auth/login")
             }
             setUser(result.data)
             setLoading(false)
-            setError(false)
+            setError(null)
 
         })
-            .catch(err => {
-                setError(err)
-            })
     }
-
 
     useLayoutEffect(() => { getData() }, [])
 

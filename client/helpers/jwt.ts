@@ -29,6 +29,7 @@ export const getWithExpiry = (key: string): any => {
 }
 
 export const sendRequsetWithToken = async (congig: Congfig, callback?: any): Promise<any> => {
+
     const token = getWithExpiry("token");
     const response = await fetch(SERVER_URL + congig.path, {
         method: congig.method || "GET",

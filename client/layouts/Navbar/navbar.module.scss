@@ -1,45 +1,38 @@
-@import "../../styles/colors";
-@import "../../styles//reset";
+@import '../../styles/colors';
+@import '../../styles//reset';
+@import '../../styles/variables';
 
 .navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 2.5rem;
-    border-radius: 10px;
+    padding: 1.25rem 0;
     margin-bottom: 1.75rem;
-    @include boxshadow;
     position: relative;
-    transition: background 0.2s ease-in-out;
-
+    transition: border 0.2s ease-in-out;
+    .logo {
+        cursor: pointer;
+    }
     div {
         display: flex;
         align-items: center;
         gap: 1.75rem;
         width: calc(100% / 3);
-        &:nth-child(2) {
-            justify-content: center;
-        }
         &:last-child {
             justify-content: flex-end;
         }
     }
 
     a {
-        transition: color 0.2s ease-in-out;
-        &:hover:not(.register) {
-            color: $main-color;
+        transition: transform 0.2s ease-in-out;
+        padding-bottom: 3px;
+        &:hover {
+            transform: translateY(-2px);
         }
     }
-    .register {
-        background-color: $main-color;
-        padding: 0.5rem 1.35rem;
-        border-radius: 4px;
-        color: white;
-    }
 
-    button {
+    .mode {
         transition: color 0.2s ease-in-out;
         cursor: pointer;
         background-color: transparent;
@@ -48,14 +41,20 @@
         position: absolute;
         right: 5px;
         bottom: -30px;
-        &:hover {
-            color: $main-color;
+    }
+
+    @media screen and (max-width: $phone) {
+        padding: 0.8rem 0;
+        margin-bottom: 1.75rem;
+        .mode {
+            right: 0px;
+            bottom: -24px;
         }
     }
 }
 
 .light {
-    background-color: $background;
+    border-bottom: 0.25px solid $border-color;
 
     a {
         color: $text-color;
@@ -63,19 +62,22 @@
     h1 {
         color: $text-color;
     }
-    button {
+
+    .mode {
         color: $text-color;
     }
 }
 .dark {
-    background-color: $background-dark;
+    border-bottom: 0.25px solid $border-color-dark;
+
     a {
         color: $text-color-dark;
     }
     h1 {
         color: $text-color-dark;
     }
-    button {
+
+    .mode {
         color: $text-color-dark;
     }
 }

@@ -1,21 +1,32 @@
+import { getWithExpiry } from "../../helpers/jwt";
 import { SERVER_URL } from "../../variables";
 
-export const submitForm = (path: string, method: string, callback?: any) => {
+
+type ReqOpt = {
+    path: string,
+    method?: string,
+    data?: any,
+}
+
+export const submitForm = (option: ReqOpt, callback?: any) => {
     return async (event: React.FormEvent<HTMLFormElement>): Promise<any> => {
         event.preventDefault();
         const values = new FormData(event.currentTarget);
         const formData = Object.fromEntries(values.entries());
+        const token = getWithExpiry("token");
+        const dataToAttach = { ...option.data, ...formData }
         try {
-            const response = await fetch(SERVER_URL + path , {
-                method: method,
+            const response = await fetch(SERVER_URL + option.path, {
+                method: option.method || 'GET',
                 headers: {
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(dataToAttach) || null,
             });
             const result = await response.json();
             console.log(result);
-            
+
             return callback(result);
         } catch (error) {
             return callback(error)

@@ -1,0 +1,8 @@
+@import "../../styles/colors";
+@import "../../styles/reset";
+
+.wrapper {
+    h1 {
+        color: $main-color;
+    }
+}

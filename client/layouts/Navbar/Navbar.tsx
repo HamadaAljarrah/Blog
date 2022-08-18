@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import classes from "./navbar.module.scss"
 import { useTheme } from '../../context/them.context'
+import Button from '../../components/Button/Button'
 
 
 
@@ -10,26 +11,28 @@ const Navbar: NextComponentType = () => {
 
     const { theme, toggleTheme } = useTheme();
 
+
     return (
         <nav className={`${classes.navbar} ${classes[theme]}`}>
             <div>
-                <h1>Logo</h1>
-            </div>
-            <div>
-                <Link href="/">Home</Link>
-                <Link href="/blogs">Blogs</Link>
-                <Link href="/blogs/create">Create</Link>
-                <Link href="/about">About</Link>
-
-            </div>
-
-            <div>
-                <Link href="/profile">Profile</Link>
-                <Link href="/auth/login">Login</Link>
-                <Link href="/auth/register">
-                    <a className={classes.register}>Register</a>
+                <Link href="/">
+                    <h1 className={classes.logo}>Logo</h1>
                 </Link>
-                <button onClick={toggleTheme}>{theme === 'dark' ? 'Change to light' : 'Change to dark '}</button>
+            </div>
+
+            <div>
+                <>
+                    <Link href="/auth/login">Login</Link>
+                    <Link href="/auth/register">
+                        <Button type='button' text='Register' />
+                    </Link>
+                </>
+
+                <button
+                    className={classes.mode}
+                    onClick={toggleTheme}>
+                    {theme === 'dark' ? 'Change to light' : 'Change to dark '}
+                </button>
             </div>
 
         </nav>
