@@ -12,7 +12,6 @@
     align-items: stretch;
     gap: 40px;
     transition: background 0.2s ease-in-out;
-
     .message {
         color: rgb(243, 17, 17);
         font-weight: 600;
@@ -37,8 +36,9 @@
 
     @media screen and (max-width: $phone) {
         gap: 30px;
-        margin-top: 60px;
+        margin-top: 80px;
         width: 100%;
+        padding: 25px;
     }
 }
 
@@ -58,7 +58,7 @@
 }
 
 .dark {
-    background-color: $background-dark;
+    background-color: $component-color;
     border: none;
 
     h1 {

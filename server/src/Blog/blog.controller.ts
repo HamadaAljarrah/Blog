@@ -1,6 +1,6 @@
 import { Response } from "express"
 import { BlogReq, IBlog } from "./blog.interface"
-import { fetchBlogs, getBlog, validateBlogContent, createNewBlog, updateBlog, getCurrentTime, calcReadTime, removeBlog } from "./blog.service";
+import { fetchBlogs, getBlog, validateBlogContent, updateBlog, getCurrentTime, calcReadTime, removeBlog, createNewBlog } from "./blog.service";
 
 
 
@@ -66,11 +66,12 @@ class BlogController {
 
         }
     }
+
+
     async createBlog(req: BlogReq, res: Response) {
         try {
 
-            const data = req.body
-            const valResult = validateBlogContent(data)
+            const valResult = validateBlogContent(req.body)
             if (!valResult.success) {
                 res.status(valResult.status).json({
                     success: false,
@@ -80,7 +81,8 @@ class BlogController {
             const createAt = getCurrentTime();
             const readTime = calcReadTime(req.body.content) + calcReadTime(req.body.snippet)
 
-            createNewBlog(data, readTime, createAt)
+
+            createNewBlog(req.body, readTime, createAt)
                 .then((newBlog) => {
                     res.status(200).json({
                         success: true,
@@ -129,6 +131,7 @@ class BlogController {
                 category: req.body.category,
                 readTime: readTime,
                 edited: edited,
+                image: "upload/test"
             }
 
             await updateBlog(id, updated)

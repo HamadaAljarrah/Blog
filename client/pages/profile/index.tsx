@@ -36,19 +36,17 @@ const Profile: NextPage = (): JSX.Element => {
 
     return (
         <Protected isError={error} isLoading={loading} >
-            <Container>
-                <div className={`${classes.container} ${classes[theme]}`}>
-                    <h1>Profile</h1>
-                    <div>
-                        {user && <>
-                            <p><strong>Name: </strong>{user.name}</p>
-                            <p><strong>Email: </strong>{user.email}</p>
-                            <p><strong>ID: </strong>{user._id}</p>
-                        </>}
-                    </div>
-                    <button>Logout</button>
+            <div className={`${classes.container} ${classes[theme]}`}>
+                <h1>Profile</h1>
+                <div>
+                    {user && <>
+                        <p><strong>Name: </strong>{user.name}</p>
+                        <p><strong>Email: </strong>{user.email}</p>
+                        <p><strong>ID: </strong>{user._id}</p>
+                    </>}
                 </div>
-            </Container>
+                <button>Logout</button>
+            </div>
         </Protected>
 
     )

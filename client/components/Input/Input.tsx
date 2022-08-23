@@ -2,23 +2,23 @@ import React from 'react'
 import { useTheme } from '../../context/them.context'
 import classes from "./input.module.scss"
 
-type Props = {
-    label: string,
-    type: string,
-    placeholder: string,
-    forNameId: string
+interface Props {
+    label: string;
+    htmlFor: string;
+    type: 'file' | 'text' | 'password' | 'email';
+    placeholder: string;
+    register?: any;
 }
 
 
-const Input = ({ label, type, placeholder, forNameId }: Props) => {
+const Input = ({ label, htmlFor, type, placeholder, register }: Props) => {
     const { theme } = useTheme();
     return (
         <div className={`${classes.input} ${classes[theme]}`}>
-            <label htmlFor={forNameId}>{label}</label>
+            <label htmlFor={htmlFor}>{label}</label>
             <input
+                {...register}
                 type={type}
-                name={forNameId}
-                id={forNameId}
                 placeholder={placeholder}
                 required
             />

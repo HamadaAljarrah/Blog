@@ -1,0 +1,58 @@
+@import '../../styles/colors';
+@import '../../styles//reset';
+@import '../../styles/variables';
+
+.wrapper {
+    padding: 100px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 0 30px;
+        gap: 30px;
+        transition: all 0.2s ease-in-out;
+    }
+    @media screen and (max-width: $tablet) {
+        width: 100%;
+        position: absolute;
+        bottom: 20px;
+        padding: 0 10px;
+        div {
+            padding: 10px 0 0 0;
+            flex-direction: row;
+            justify-content: space-around;
+            height: 100%;
+        }
+    }
+}
+
+.light {
+    div {
+        width: 100%;
+        border-left: 0.25px solid $border-color;
+    }
+    @media screen and (max-width: $tablet) {
+        div {
+            border-left: none;
+            border-top: 0.25px solid $border-color;
+        }
+    }
+}
+
+.dark {
+    div {
+        border-left: 0.25px solid $border-color-dark;
+    }
+    @media screen and (max-width: $tablet) {
+        div {
+            border-left: none;
+            border-top: 0.25px solid $border-color-dark;
+        }
+    }
+}

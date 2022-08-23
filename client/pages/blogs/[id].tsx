@@ -1,21 +1,18 @@
 import React from 'react'
 import { useTheme } from '../../context/them.context'
-import Container from '../../layouts/Container/Container'
 import { SERVER_URL } from '../../variables'
 import classes from "./blogPost.module.scss"
 
 const BlogPost = ({ blog }: any) => {
     const { theme } = useTheme()
     return (
-        <Container>
-            <div className={`${classes.wrapper} ${classes[theme]}`}>
-                {blog.title} <br />
-                {blog.snippet} <br />
-                {blog.content} <br />
-                {blog.auther} <br />
-                {blog.createAt} <br />
-            </div>
-        </Container>
+        <div className={`${classes.wrapper} ${classes[theme]}`}>
+            {blog.title} <br />
+            {blog.snippet} <br />
+            {blog.content} <br />
+            {blog.auther} <br />
+            {blog.createAt} <br />
+        </div>
 
     )
 }

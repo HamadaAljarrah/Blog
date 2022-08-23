@@ -24,6 +24,7 @@ export const createNewBlog =
             category: data.category,
             readTime: readTime,
             createAt: createAt,
+
         })
 
         await newBlog.save();
@@ -61,6 +62,16 @@ export const validateBlogContent = (data: Omit<IBlog, "createAt" & "readTime">):
     }
 }
 
+export const uploadFile = (path: string, img: any) => {
+    img.mv(path + "/" + img.name);
+    return {
+        name: img.name,
+        mimetype: img.mimetype,
+        path: path + "/" + img.name,
+        size: img.size,
+    }
+
+}
 
 export const calcReadTime = (content: string): number => {
     const wpm = 150;

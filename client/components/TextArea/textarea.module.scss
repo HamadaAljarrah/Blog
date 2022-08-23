@@ -1,0 +1,63 @@
+@import "../../styles/colors";
+
+.textarea {
+    width: 100%;
+    position: relative;
+    label {
+        font-size: 1rem;
+        position: absolute;
+        top: -7px;
+        left: 5px;
+        padding: 0 6px;
+        z-index: 1;
+    }
+    textarea {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        background-color: transparent;
+        transition: all 0.2s ease-in-out;
+        padding: 0 11px;
+        resize: none;
+        padding: 10px;
+        &::placeholder {
+            transition: color 0.2s ease-in-out;
+        }
+    }
+}
+
+.light {
+    label {
+        color: $text-color;
+        background-color: $background;
+    }
+
+    textarea {
+        color: $text-color;
+        border: solid 0.25px $border-color;
+        &:focus {
+            outline: solid 1px $text-color;
+        }
+        &::placeholder {
+            color: $second-text-color;
+        }
+    }
+}
+
+.dark {
+    label {
+        color: $text-color-dark;
+        background-color: black;
+    }
+
+    textarea {
+        color: $text-color-dark;
+        border: solid 0.25px $border-color-dark;
+        &:focus {
+            outline: solid 1px $text-color-dark;
+        }
+        &::placeholder {
+            color: $second-text-color-dark;
+        }
+    }
+}

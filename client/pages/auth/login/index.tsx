@@ -1,42 +1,58 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import classes from "../form.module.scss";
-import { useTheme } from "../../../context/them.context";
-import Container from "../../../layouts/Container/Container";
+
 import Input from "../../../components/Input/Input";
-import { submitForm } from "../form.logic";
 import Router from "next/router";
-import { NextPage } from "next";
-import { setWithExpiry } from "../../../helpers/jwt";
 import Button from "../../../components/Button/Button";
+import Link from "next/link";
+
+import { useForm } from "react-hook-form";
+import { setWithExpiry } from "../../../helpers/jwt";
+import { sendAuthRequest } from "../../../helpers/auth";
+import { useTheme } from "../../../context/them.context";
+import { User } from "../../../types/user";
 
 
+type LoginData = Omit<User, "name" | "_id">
 
-
-const Login: NextPage = (): JSX.Element => {
+const Login = () => {
 
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
-    const submitHandler = submitForm({ path: "/auth/login", method: "POST" }, (result: any) => {
-        if (result.success) {
+    const { register, handleSubmit } = useForm<LoginData>();
+
+    const onSubmit = async (data: LoginData) => {
+        const { email, password } = data
+        const response = await sendAuthRequest('login', { email, password })
+        if (response.success) {
             const oneHour = 1000 * 60 * 15
-            setWithExpiry("token", result.token, oneHour);
+            setWithExpiry("token", response.token, oneHour);
             return Router.push("/profile");
         }
-        setMessage(result.message);
-    });
+        setMessage(response.message)
+    }
+
 
     return (
-        <Container>
-            <form onSubmit={submitHandler} className={`${classes.form} ${classes[theme]}`}>
-                <h1>Login</h1>
-                {message && <p className={classes.message}>{message}</p>}
-                <Input type="email" forNameId="email" label="Email" placeholder="Enter your email" />
-                <Input type="password" forNameId="password" label="Password" placeholder="Enter your password" />
-                <Button type="submit" text="login" />
-                <p>Don't have an account? <Link href="register">Sign up</Link></p>
-            </form>
-        </Container>
+        <form onSubmit={handleSubmit(onSubmit)} className={`${classes.form} ${classes[theme]}`}>
+            <h1>Login</h1>
+            {message && <p className={classes.message}>{message}</p>}
+            <Input
+                htmlFor='email'
+                register={register('email')}
+                type='email'
+                label='Email'
+                placeholder='Enter your email'
+            />
+            <Input
+                htmlFor='password'
+                register={register('password')}
+                type="password" label="Password"
+                placeholder='Enter your password'
+            />
+            <Button type='submit' text='login' />
+            <p>Don't have an account? <Link href='register'>Sign up</Link></p>
+        </form>
     );
 };
 

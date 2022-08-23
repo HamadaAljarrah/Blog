@@ -1,6 +1,8 @@
 .background {
     min-height: 100vh;
-    padding: 20px 0px;
+    width: 100vw;
+    display: flex;
+    position: relative;
     object-fit: cover;
     transition: background 0.2s ease-in-out;
 }

@@ -23,9 +23,8 @@ const Navbar: NextComponentType = () => {
             <div>
                 <>
                     <Link href="/auth/login">Login</Link>
-                    <Link href="/auth/register">
-                        <Button type='button' text='Register' />
-                    </Link>
+
+                    <Button link="/auth/register" type='button' text='Register' />
                 </>
 
                 <button

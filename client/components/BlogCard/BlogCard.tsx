@@ -18,20 +18,24 @@ const BlogCard = ({ title, snippet, category, auther, createAt, readTime, _id }:
     return (
         <Link href={`/blogs/${_id}`}>
             <div className={`${classes.card} ${classes[theme]}`}>
+                <div className={classes.image}>
+                    <div className={classes.overlay}></div>
+                    <img src="./img/women.png" alt="food" />
+                </div>
 
-                <img src="./img/food.jpg" alt="food" />
                 <div className={classes.wrapper}>
                     <div className={classes.header}>
-                        <div>
-                            <h3>{title}</h3>
-                            <p>{category}</p>
-                        </div>
-                        <p>{readTime} min</p>
+                        <h3>{title}</h3>
+                        <p>{category}</p>
                     </div>
                     <p className={classes.snippet}>{snippet}</p>
+
                     <div className={classes.footer}>
                         <p>{auther}</p>
-                        <p>{createAt}</p>
+                        <div>
+                            <p>{createAt}</p>
+                            <p>{readTime} min</p>
+                        </div>
                     </div>
 
                 </div>
