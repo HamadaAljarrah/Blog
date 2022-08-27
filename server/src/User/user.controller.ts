@@ -37,13 +37,13 @@ class UserController {
     }
 
     async getCurrentUser(req: UserReq, res: Response) {
-        if (req.userId == null) {
+        const user = req.user
+        if (user == null) {
             return res.status(403).json({
                 success: false,
                 message: "User is not loggedin",
             })
         }
-        const user = await findUserById(req.userId)
         return res.status(200).json({
             success: true,
             message: "Got the current user successfully",

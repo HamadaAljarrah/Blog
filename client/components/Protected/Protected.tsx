@@ -1,14 +1,20 @@
-import React, { ReactNode } from 'react'
+import { useRouter } from 'next/router'
+import { ReactNode } from 'react'
+import { useProtect } from '../../hook/useProtect';
 
 type Props = {
-    children: ReactNode,
-    isLoading: boolean,
-    isError: any
+    children: ReactNode
 }
 
-export const Protected = ({ children, isError, isLoading }: Props) => {
-    if (isError) return <div>Error</div>
-    if (isLoading) return <div>isLoading</div>
-    return <>{children}</>
+export const Protected = ({ children }: Props): any => {
+    const { isLoading, isError } = useProtect();
+    const router = useRouter();
+
+    if (isLoading) return <div>Loading...</div>
+    if (isError) {
+        router.push("/auth/login")
+        return <div>Loading...</div>
+    }
+    return children
 
 }

@@ -8,7 +8,7 @@ const Sidebar = () => {
     return (
         <div className={`${classes.wrapper} ${classes[theme]}`}>
             <div>
-                <Home link='/' />
+                <Home link='/blogs' />
                 <Bookmark link='/bookmark' />
                 <Create link='/blogs/create' />
             </div>

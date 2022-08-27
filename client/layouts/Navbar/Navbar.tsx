@@ -1,15 +1,17 @@
 import { NextComponentType } from 'next'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import classes from "./navbar.module.scss"
 import { useTheme } from '../../context/them.context'
 import Button from '../../components/Button/Button'
+import { useProtect } from '../../hook/useProtect'
 
 
 
 const Navbar: NextComponentType = () => {
 
     const { theme, toggleTheme } = useTheme();
+    const { user } = useProtect();
 
 
     return (
@@ -21,12 +23,9 @@ const Navbar: NextComponentType = () => {
             </div>
 
             <div>
-                <>
-                    <Link href="/auth/login">Login</Link>
-
-                    <Button link="/auth/register" type='button' text='Register' />
-                </>
-
+                <Link href="/auth/login">Login</Link>
+                <Button link="/auth/register" type='button' text='Register' />
+                <Link href='/profile'>Profile</Link>
                 <button
                     className={classes.mode}
                     onClick={toggleTheme}>

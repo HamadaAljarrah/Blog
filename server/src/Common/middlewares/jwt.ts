@@ -11,7 +11,7 @@ class JWT {
         if (authHeader && authHeader !== "null") {
 
             const token = authHeader.split(" ")[1];
-            jwt.verify(token, secret, (err: any, user: any) => {
+            jwt.verify(token, secret, (err: any, deconded: any) => {
 
                 if (err) {
                     return res.status(403).json({
@@ -19,7 +19,7 @@ class JWT {
                         message: "Token Expired"
                     })
                 }
-                req.userId = user.id;
+                req.user = deconded.user;
                 next()
             })
 

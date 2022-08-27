@@ -12,6 +12,7 @@ import { useTheme } from '../../../context/them.context'
 import { useForm } from "react-hook-form"
 import { Blog } from "../../../types/blog"
 import { sendCreateBlogRequset, uploadIamge } from "../../../helpers/blog"
+import { Protected } from "../../../components/Protected/Protected"
 
 
 
@@ -23,9 +24,7 @@ const CreateBlog = () => {
     const { register, handleSubmit } = useForm<BlogData>()
 
     const onSubmit = async (data: BlogData) => {
-
         const contentRes = await sendCreateBlogRequset({ ...data, auther: "will be dynamic" })
-        await uploadIamge(data.image[0])
 
         if (contentRes.success) {
             return Router.push("/blogs");
@@ -35,38 +34,40 @@ const CreateBlog = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={`${classes.wrapper} ${classes[theme]}`}>
-            {message && <h2>{message}</h2>}
-            <Input
-                register={register('title')}
-                htmlFor='title'
-                type='text'
-                label='Title'
-                placeholder='Title'
-            />
-            <TextArea
-                register={register('snippet')}
-                htmlFor='snippet'
-                label='Snippet'
-            />
-            <TextArea
-                register={register('content')}
-                htmlFor='content'
-                label='Content'
-                height={600}
-            />
-            <div className={classes.towFlex}>
-                <Select
-                    register={register('category')}
-                    htmlFor='category'
-                    label='Category'
+        <Protected>
+            <form onSubmit={handleSubmit(onSubmit)} className={`${classes.wrapper} ${classes[theme]}`}>
+                {message && <h2>{message}</h2>}
+                <Input
+                    register={register('title')}
+                    htmlFor='title'
+                    type='text'
+                    label='Title'
+                    placeholder='Title'
                 />
-                <UploadFile
-                    register={register('image')}
+                <TextArea
+                    register={register('snippet')}
+                    htmlFor='snippet'
+                    label='Snippet'
                 />
-            </div>
-            <Button text='Publish' type='submit' />
-        </form>
+                <TextArea
+                    register={register('content')}
+                    htmlFor='content'
+                    label='Content'
+                    height={600}
+                />
+                <div className={classes.towFlex}>
+                    <Select
+                        register={register('category')}
+                        htmlFor='category'
+                        label='Category'
+                    />
+                    <UploadFile
+                        register={register('image')}
+                    />
+                </div>
+                <Button text='Publish' type='submit' />
+            </form>
+        </Protected>
 
     )
 }

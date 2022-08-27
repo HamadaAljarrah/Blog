@@ -4,10 +4,10 @@ import { ThemProvider } from "../context/them.context";
 import Background from "../layouts/Background/Background";
 import Container from "../layouts/Container/Container";
 import Navbar from "../layouts/Navbar/Navbar";
-import "../styles/globals.scss"
-import { AuthProvider } from "../context/auth.context";
 import Head from "next/head";
 import Sidebar from "../layouts/SideBar/Sidebar";
+
+
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             </Head>
             <ThemProvider>
-                <AuthProvider>
                     <Background>
                         <Container>
                             <Navbar />
@@ -27,7 +26,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                         <Sidebar />
 
                     </Background>
-                </AuthProvider>
             </ThemProvider>
         </>
 

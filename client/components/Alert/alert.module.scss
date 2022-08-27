@@ -1,0 +1,41 @@
+.alert {
+  padding: 15px 20px;
+  border-radius: 4px;
+  margin: 10px 0;
+  .wrapper {
+    display: flex;
+    gap: 25px;
+
+    p {
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 0.85rem;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      .title {
+        font-weight: 600;
+        padding-top: 5px;
+      }
+      
+    }
+  }
+}
+
+.Error {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.Warning {
+  background-color: rgba(255, 149, 0, 0.25);
+}
+
+.Info {
+  background-color: rgba(0, 98, 255, 0.1);
+}
+
+.Success {
+  background-color: rgba(72, 255, 0, 0.1);
+}

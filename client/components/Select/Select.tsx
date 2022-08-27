@@ -15,10 +15,10 @@ type Props = {
 }
 
 const Categories: SelectOption[] = [
-    { key: 'Development', value: 'development' },
-    { key: 'Health', value: 'health' },
-    { key: 'Travel', value: 'travel' },
-    { key: 'Inspiration', value: 'inspiration' },
+    { key: 'Development', value: 'Development' },
+    { key: 'Health', value: 'Health' },
+    { key: 'Travel', value: 'Travel' },
+    { key: 'Inspiration', value: 'Inspiration' },
 ]
 
 
