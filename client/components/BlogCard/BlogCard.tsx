@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { useTheme } from '../../context/them.context'
+import { Bookmark } from '../Icons/icons'
 import classes from "./blogCard.module.scss"
 
 export type BlogInfo = {
@@ -31,7 +32,7 @@ const BlogCard = ({ title, snippet, category, auther, createAt, readTime, _id }:
                     <p className={classes.snippet}>{snippet}</p>
 
                     <div className={classes.footer}>
-                        <p>{auther}</p>
+                        <p>By {auther}</p>
                         <div>
                             <p>{createAt}</p>
                             <p>{readTime} min</p>

@@ -2,7 +2,16 @@
 @import '../../styles/reset';
 
 .wrapper {
-    h1 {
-        color: $text-color;
-    }
+    
+}
+
+.light {
+  h1 {
+    color: $text-color;
+  }
+}
+.dark {
+  h1 {
+    color: $text-color-dark;
+  }
 }

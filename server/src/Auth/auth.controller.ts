@@ -71,6 +71,19 @@ class AuthController {
 
         }
     }
+    async logout(req: UserReq, res: Response) {
+        try {
+            //get current token by a milddleware
+            //set ths token in a balck list and store it in database
+            //in jwt check frist if the token exist in the black list
+
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error,
+            })
+        }
+    }
 }
 
 export default new AuthController

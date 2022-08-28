@@ -5,14 +5,14 @@ import classes from "./navbar.module.scss"
 import { useTheme } from '../../context/them.context'
 import Button from '../../components/Button/Button'
 import { useProtect } from '../../hook/useProtect'
+import { useAuth } from '../../context/auth.context'
 
 
 
-const Navbar: NextComponentType = () => {
+const Navbar = () => {
 
     const { theme, toggleTheme } = useTheme();
-    const { user } = useProtect();
-
+    const {isAuthenticated} = useAuth();
 
     return (
         <nav className={`${classes.navbar} ${classes[theme]}`}>
@@ -23,9 +23,14 @@ const Navbar: NextComponentType = () => {
             </div>
 
             <div>
-                <Link href="/auth/login">Login</Link>
-                <Button link="/auth/register" type='button' text='Register' />
-                <Link href='/profile'>Profile</Link>
+                {!isAuthenticated &&
+                    <>
+                        <Link href="/auth/login">Login</Link>
+                        <Button link="/auth/register" type='button' text='Register' />
+                    </>
+                }
+
+                {isAuthenticated && <Link href='/profile'>Profile</Link>}
                 <button
                     className={classes.mode}
                     onClick={toggleTheme}>

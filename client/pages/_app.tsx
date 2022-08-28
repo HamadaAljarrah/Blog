@@ -6,6 +6,7 @@ import Container from "../layouts/Container/Container";
 import Navbar from "../layouts/Navbar/Navbar";
 import Head from "next/head";
 import Sidebar from "../layouts/SideBar/Sidebar";
+import { AuthProvider } from "../context/auth.context";
 
 
 
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             </Head>
             <ThemProvider>
+                <AuthProvider>
                     <Background>
                         <Container>
                             <Navbar />
@@ -26,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                         <Sidebar />
 
                     </Background>
+                </AuthProvider>
             </ThemProvider>
         </>
 

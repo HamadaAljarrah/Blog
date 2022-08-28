@@ -3,11 +3,14 @@
 .container {
     width: 400px;
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
     transition: background 0.2s ease-in-out;
     h1 {
         transition: color 0.2s ease-in-out;
-        margin-bottom: 20px;
+        margin: 0;
     }
     div {
         display: flex;
@@ -20,25 +23,15 @@
             border-bottom: 0.25px solid $text-color;
         }
     }
-    button {
-        border: none;
-        color: white;
-        height: 2.5rem;
-        font-size: 1rem;
-        border-radius: 4px;
-        font-weight: 500;
-        margin-top: 10px;
-        transition: transform 0.2s ease-in-out;
-        cursor: pointer;
-        margin-top: 50px;
-        width: 100%;
-    }
+
 }
 
 .light {
     background-color: $background;
     border: 0.25px solid $border-color;
-
+    h1{
+        color: $text-color;
+    }
     p {
         padding-bottom: 2px;
         border-bottom: 0.25px solid $text-color;
@@ -47,7 +40,9 @@
 .dark {
     background-color: $component-color;
     border: 0.25px solid $background-dark;
-
+    h1{
+        color: $text-color-dark;
+    }
     p {
         padding-bottom: 2px;
         color: $text-color-dark;

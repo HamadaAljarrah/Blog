@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import classes from "../form.module.scss";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useTheme } from "../../../context/them.context";
 import Input from "../../../components/Input/Input";
 import { NextPage } from "next";
@@ -18,11 +18,11 @@ const Register: NextPage = (): JSX.Element => {
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
     const { handleSubmit, register } = useForm<LoginData>()
-
+    const router = useRouter();
     const onSubmit = async (data: LoginData) => {
         const { name, email, password } = data
         const response = await sendAuthRequest('register', { name, email, password })
-        if (response.success) return Router.push("/auth/login");
+        if (response.success) return router.push("/auth/login");
         setMessage(response.message)
     }
 

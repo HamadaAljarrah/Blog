@@ -1,6 +1,6 @@
 import { BlogData } from "../pages/blogs/create";
 import { SERVER_URL } from "../variables";
-import { getWithExpiry } from "./jwt";
+import { getWithExpiry } from "./auth"; 
 
 export const sendCreateBlogRequset = async (data: BlogData): Promise<any> => {
     const token = getWithExpiry("token");

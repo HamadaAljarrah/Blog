@@ -2,24 +2,41 @@ import React from 'react'
 import classes from "./profile.module.scss"
 import { useTheme } from '../../context/them.context'
 import { Protected } from '../../components/Protected/Protected'
-
-
+import PageWrapper from '../../layouts/PageWrapper/PageWrapper'
+import { useProtect } from '../../hook/useProtect'
+import Button from '../../components/Button/Button'
+import { logOut } from '../../helpers/auth'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../context/auth.context'
 
 
 const Profile = () => {
     const { theme } = useTheme();
-
+    const { user } = useProtect();
+    const {setIsAuthenticated} = useAuth();
+    const router = useRouter();
+    const clickHandler = () => {
+        logOut();
+        setIsAuthenticated(false);
+        router.push('/auth/login')
+    }
     return (
         <Protected>
-            <div className={`${classes.container} ${classes[theme]}`}>
-                <h1>Profile</h1>
-                <div>
-                    <p><strong>Name: </strong></p>
-                    <p><strong>Email: </strong></p>
-                    <p><strong>ID: </strong></p>
+            <PageWrapper>
+                <div className={`${classes.container} ${classes[theme]}`}>
+                    <h1>Profile</h1>
+                    <div>
+                        {user &&
+                            <>
+                                <p><strong>Name: </strong>{user.name}</p>
+                                <p><strong>Email: </strong>{user.email}</p>
+                                <p><strong>ID: </strong>{user._id}</p>
+                            </>
+                        }
+                    </div>
+                    <Button onClick={clickHandler} type='button' text='Logout' />
                 </div>
-                <button>Logout</button>
-            </div>
+            </PageWrapper>
         </Protected>
 
     )
