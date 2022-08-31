@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                             <Component {...pageProps} />
                         </Container>
                         <Sidebar />
-
                     </Background>
                 </AuthProvider>
             </ThemProvider>

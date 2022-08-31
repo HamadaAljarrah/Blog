@@ -7,11 +7,12 @@ import Button from "../../../components/Button/Button";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
-import { setWithExpiry } from "../../../helpers/auth"; 
+import { setWithExpiry } from "../../../helpers/auth";
 import { sendAuthRequest } from "../../../helpers/auth";
 import { useTheme } from "../../../context/them.context";
 import { User } from "../../../types/user";
 import { useAuth } from "../../../context/auth.context";
+import { ErrorConponent } from "../../../components/Alert/Alert";
 
 
 type LoginData = Omit<User, "name" | "_id">
@@ -21,7 +22,7 @@ const Login = () => {
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>();
     const { register, handleSubmit } = useForm<LoginData>();
-    const {setIsAuthenticated} = useAuth();
+    const { setIsAuthenticated } = useAuth();
     const router = useRouter();
 
     const onSubmit = async (data: LoginData) => {
@@ -41,7 +42,7 @@ const Login = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={`${classes.form} ${classes[theme]}`}>
             <h1>Login</h1>
-            {message && <p className={classes.message}>{message}</p>}
+            {message && <ErrorConponent message={message} />}
             <Input
                 htmlFor='email'
                 register={register('email')}

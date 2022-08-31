@@ -1,7 +1,8 @@
 import { Response } from "express";
 import { UserReq } from "../User/user.interface";
-import { createNewUser, generateAccessToken, validateLogin, validateRegister } from "./auth.service";
+import { createNewUser, generateAccessToken, getTokenFromHeader, validateLogin, validateRegister } from "./auth.service";
 import { IUser } from "../User/user.interface"
+import Token from "./auth.model";
 
 
 class AuthController {
@@ -73,9 +74,15 @@ class AuthController {
     }
     async logout(req: UserReq, res: Response) {
         try {
-            //get current token by a milddleware
-            //set ths token in a balck list and store it in database
-            //in jwt check frist if the token exist in the black list
+            const token = getTokenFromHeader(req);
+            await Token.create({ token: token})
+                .then(() => {
+                    res.status(200).json({
+                        success: true,
+                        message: 'You are logedout',
+                    })
+                })
+
 
         } catch (error) {
             res.status(400).json({

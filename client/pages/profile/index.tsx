@@ -5,7 +5,7 @@ import { Protected } from '../../components/Protected/Protected'
 import PageWrapper from '../../layouts/PageWrapper/PageWrapper'
 import { useProtect } from '../../hook/useProtect'
 import Button from '../../components/Button/Button'
-import { logOut } from '../../helpers/auth'
+import { sendLogoutRequest } from '../../helpers/auth'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../context/auth.context'
 
@@ -15,10 +15,17 @@ const Profile = () => {
     const { user } = useProtect();
     const {setIsAuthenticated} = useAuth();
     const router = useRouter();
-    const clickHandler = () => {
-        logOut();
-        setIsAuthenticated(false);
-        router.push('/auth/login')
+    const clickHandler = async () => {
+        const token = JSON.parse(localStorage.getItem('token') || "").value;        
+        const response = await sendLogoutRequest(token || "");
+        if(response.success){
+            localStorage.removeItem('token');
+            setIsAuthenticated(false);
+            return router.push('/auth/login')
+        } 
+        console.log("Failed to logout");
+
+        
     }
     return (
         <Protected>

@@ -12,6 +12,8 @@ export class AuthRoutes extends RouteConfig {
 
         this.app.route("/auth/login").post([AuthController.login])
         this.app.route("/auth/register").post([AuthController.register])
+        this.app.route("/auth/logout").post([AuthController.logout])
+
 
         return this.app
     }

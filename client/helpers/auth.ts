@@ -31,9 +31,17 @@ export const getWithExpiry = (key: string): any => {
 }
 
 
-export const logOut = ()=>{
-    //TODO: send logout requset to backend
-    localStorage.removeItem('token')
+export const sendLogoutRequest = async(token: string)=>{
+    const url = SERVER_URL + '/auth/logout';
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    const result = await response.json();
+    return result
 }
 
 export const sendAuthRequest = async (requsetType: 'login' | 'register', data: any): Promise<any> => {

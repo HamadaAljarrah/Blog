@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import { useTheme } from '../../context/them.context'
 import classes from "./sideBar.module.scss"

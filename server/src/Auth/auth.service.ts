@@ -1,5 +1,5 @@
 import User from "../User/user.model";
-import { IUser } from "../User/user.interface";
+import { IUser, UserReq } from "../User/user.interface";
 import { ICheckResponse } from "../Common/interfaces";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -99,4 +99,16 @@ export const generateRefreshToken = (payload: object, exp: string): string => {
     let secret = process.env.REFRESH_TOKEN || "123123";
     return jwt.sign(payload, secret, { expiresIn: exp })
 
+}
+
+export const getTokenFromHeader = (req: UserReq) => {
+    let token: string | null;
+    const authHeader = req.headers.authorization;
+
+    if (authHeader && authHeader !== null) {
+        token = authHeader.split(" ")[1];
+    } else {
+        token = null
+    }
+    return token
 }
