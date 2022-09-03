@@ -6,6 +6,7 @@ import classes from "../blogs/blogs.module.scss"
 import { useTheme } from '../../context/them.context'
 import { Protected } from '../../components/Protected/Protected'
 import PageWrapper from '../../layouts/PageWrapper/PageWrapper'
+import { InfoComponent } from '../../components/Alert/Alert'
 
 const Bookmark = ({ blogs }: any) => {
     const { theme } = useTheme()
@@ -26,7 +27,8 @@ const Bookmark = ({ blogs }: any) => {
                             _id={blog._id}
                         />
                     }) :
-                        <p>No blogs yet</p>}
+                    <InfoComponent message='There is no bookmarked blogs' />
+                    }
                 </div>
             </PageWrapper>
         </Protected>

@@ -7,6 +7,7 @@ export interface BlogDocument extends Document {
     snippet: string;
     content: string;
     auther: string;
+    autherId: string;
     category: string;
     readTime: number;
     createAt: string;
@@ -18,9 +19,11 @@ const BlogSchema = new Schema({
     snippet: { type: String, required: true },
     content: { type: String, required: true },
     auther: { type: String, required: true },
+    autherId: { type: String, required: true },
     category: { type: String, required: true }, // enum?
     readTime: { type: Number, required: true },
     createAt: { type: String, required: true },
+    
     edited: { type: String }
 })
 

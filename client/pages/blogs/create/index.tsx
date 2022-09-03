@@ -11,9 +11,10 @@ import Router from "next/router"
 import { useTheme } from '../../../context/them.context'
 import { useForm } from "react-hook-form"
 import { Blog } from "../../../types/blog"
-import { sendCreateBlogRequset, uploadIamge } from "../../../helpers/blog"
+import { sendCreateBlogRequset } from "../../../helpers/blog"
 import { Protected } from "../../../components/Protected/Protected"
 import PageWrapper from "../../../layouts/PageWrapper/PageWrapper"
+import { useProtect } from "../../../hook/useProtect"
 
 
 
@@ -23,9 +24,15 @@ const CreateBlog = () => {
     const { theme } = useTheme();
     const [message, setMessage] = useState<string>()
     const { register, handleSubmit } = useForm<BlogData>()
-
+    const { user } = useProtect();
     const onSubmit = async (data: BlogData) => {
-        const contentRes = await sendCreateBlogRequset({ ...data, auther: "will be dynamic" })
+        const contentRes = await sendCreateBlogRequset(
+            {
+                ...data,
+                auther: user?.name || "No auther",
+                autherId: user?._id || "No Id"
+            }
+        )
 
         if (contentRes.success) {
             return Router.push("/blogs");

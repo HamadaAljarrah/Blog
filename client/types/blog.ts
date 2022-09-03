@@ -4,6 +4,7 @@ export type Blog = {
     content: string,
     category: string,
     auther: string,
+    autherId: string,
     readTime: number,
     createAt: string,
     editAt: string,

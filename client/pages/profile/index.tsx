@@ -15,6 +15,7 @@ const Profile = () => {
     const { user } = useProtect();
     const {setIsAuthenticated} = useAuth();
     const router = useRouter();
+    
     const clickHandler = async () => {
         const token = JSON.parse(localStorage.getItem('token') || "").value;        
         const response = await sendLogoutRequest(token || "");

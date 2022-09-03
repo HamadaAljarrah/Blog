@@ -34,7 +34,33 @@ class BlogController {
 
         }
 
+    }
+    async getAllUserBlogs(req: BlogReq, res: Response) {
 
+        try {
+            const {userId} = req.params.id
+            const blogs: IBlog[] = await fetchBlogs(userId)
+            if (blogs.length === 0) {
+                return res.status(200).json({
+                    success: true,
+                    message: "There is no blogs yet. Create one!",
+                })
+            }
+
+            res.status(200).json({
+                success: true,
+                message: "All blogs sended",
+                data: blogs
+            })
+
+        } catch (error) {
+
+            res.status(400).json({
+                success: false,
+                message: "Failed to get blogs",
+            })
+
+        }
 
     }
 
@@ -128,6 +154,7 @@ class BlogController {
                 snippet: req.body.snippet,
                 content: req.body.content,
                 auther: req.body.auther,
+                autherId: req.body.autherId,
                 category: req.body.category,
                 readTime: readTime,
                 edited: edited,

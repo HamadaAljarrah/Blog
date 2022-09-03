@@ -4,10 +4,13 @@ import { MongoId } from "../Common/services/mongoose.services"
 import { ICheckResponse } from "../Common/interfaces"
 
 
-export const fetchBlogs = async (): Promise<Array<IBlog>> => {
-    const blogs: Array<IBlog> = await Blog.find()
+export const fetchBlogs = async (id?: string): Promise<Array<IBlog>> => {
+    const blogs: Array<IBlog> = id ? await Blog.find({ autherId: id }) :  await Blog.find();
     return blogs
+
+
 }
+
 
 export const getBlog = async (id: MongoId): Promise<IBlog | null> => {
     return await Blog.findById(id)
@@ -21,6 +24,7 @@ export const createNewBlog =
             snippet: data.snippet,
             content: data.content,
             auther: data.auther,
+            autherId: data.autherId,
             category: data.category,
             readTime: readTime,
             createAt: createAt,
@@ -44,8 +48,8 @@ export const removeBlog = async (id: MongoId): Promise<IBlog | null> => {
 
 export const validateBlogContent = (data: Omit<IBlog, "createAt" & "readTime">): ICheckResponse => {
 
-    const { title, snippet, content, auther, category } = data
-    if (!(title && snippet && content && auther && category)) {
+    const { title, snippet, content, auther, category, autherId } = data
+    if (!(title && snippet && content && auther && category && autherId)) {
         return {
             status: 400,
             success: false,
@@ -74,7 +78,7 @@ export const uploadFile = (path: string, img: any) => {
 }
 
 export const calcReadTime = (content: string): number => {
-    const wpm = 150;
+    const wpm = 220;
     const numOfWords = content.trim().split(/\s+/).length
     const readTime = numOfWords / wpm;
     return readTime

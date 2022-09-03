@@ -1,4 +1,5 @@
 @import '../../styles/colors';
+@import '../../styles/variables';
 
 .wrapper {
   .head {
@@ -6,23 +7,25 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+
     h4 {
       font-style: normal;
       font-weight: 500;
       font-size: 1rem;
     }
-    p{
-        font-size: 0.9rem;
+
+    p {
+      font-size: 0.9rem;
     }
   }
 
   .header {
     display: flex;
     justify-content: space-between;
+
     p {
       line-height: 250%;
       font-size: 0.9rem;
-
     }
 
     .title {
@@ -35,65 +38,81 @@
       line-height: 16px;
     }
   }
+
   .snippet {
     line-height: 160%;
     font-weight: 500;
   }
+
   .content {
     margin-top: 30px;
     line-height: 150%;
   }
+  @media screen and (max-width: $tablet) {
+    padding: 0.8rem 0;
+    margin-bottom: 1.75rem;
+    .mode {
+        bottom: -24px;
+    }
+}
 }
 
 .light {
   .header {
-    h1{
-        color: $text-color;
-    
-        }
+    h1 {
+      color: $text-color;
+    }
+
     p {
       color: $second-text-color;
     }
   }
+
   .head {
     h4 {
       color: $second-text-color;
     }
+
     p {
       color: $second-text-color;
     }
   }
-  .snippet{
-    color: $text-color;
 
+  .snippet {
+    color: $text-color;
   }
-  .content{
+
+  .content {
     color: $text-color;
   }
 }
+
 .dark {
   .header {
-    h1{
-    color: $text-color-dark;
-
+    h1 {
+      color: $text-color-dark;
     }
+
     p {
       color: $second-text-color-dark;
     }
   }
+
   .head {
     h4 {
       color: $second-text-color-dark;
     }
+
     p {
       color: $second-text-color-dark;
     }
   }
-  .snippet{
-    color: $text-color-dark;
 
+  .snippet {
+    color: $text-color-dark;
   }
-  .content{
+
+  .content {
     color: $text-color-dark;
   }
 }

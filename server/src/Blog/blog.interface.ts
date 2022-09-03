@@ -7,6 +7,7 @@ export interface IBlog {
     snippet: BlogDocument['snippet'];
     content: BlogDocument['content'];
     auther: BlogDocument['auther'];
+    autherId: BlogDocument['autherId'];
     category: BlogDocument['category'];
     readTime: BlogDocument['readTime'];
     createAt: BlogDocument['createAt'];
